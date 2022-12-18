@@ -2,19 +2,21 @@ import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 import CurrencyInput from "react-native-currency-input";
-import { handleTransaction } from "../services/transactionService";
+import { handleCreateTransaction } from "../services/transactionService";
 import {
   ALERT_TYPE,
   AlertNotificationRoot,
   Toast,
 } from "react-native-alert-notification";
-import DatePicker from "react-native-datepicker";
-// import DatePicker from "@react-native-community/datetimepicker";
+import RNDateTimePicker, {
+  DateTimePickeriOS,
+} from "@react-native-community/datetimepicker";
 
 const Incomes = () => {
   const [income, setIncome] = useState(0);
   const [incomeType, setIncomeType] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
 
   // Isa = Individual Savings Account
   const incomeTypes = ["Salary", "Gift", "Isa", "Others"];
@@ -28,7 +30,7 @@ const Incomes = () => {
         date: date,
         value: income,
       };
-      await handleTransaction(incomeData);
+      await handleCreateTransaction(incomeData);
       Toast.show({
         type: ALERT_TYPE.SUCCESS,
         title: "Success",
@@ -68,30 +70,22 @@ const Incomes = () => {
 
         {/* INCOME DATE */}
         <Text>Date:</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={date}
-          mode="date"
-          placeholder="Select date"
-          format="DD-MM-YYYY"
-          minDate="01-01-2022"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: "absolute",
-              left: 0,
-              top: 4,
-              marginLeft: 0,
-            },
-            dateInput: {
-              marginLeft: 36,
-            },
-          }}
-          onDateChange={(date) => {
-            setDate(date);
-          }}
-        />
+        <TouchableOpacity onPress={() => setShow(true)}>
+          <Text>{date.toDateString()}</Text>
+        </TouchableOpacity>
+        {show && (
+          <RNDateTimePicker
+            value={date}
+            mode="date"
+            display="default"
+            onChange={(event, selectedDate) => {
+              const currentDate = selectedDate || date;
+              setDate(currentDate);
+              setShow(false);
+            }}
+            locale="pt-BR"
+          />
+        )}
 
         {/* INCOME VALUE */}
         <Text>Amount:</Text>
