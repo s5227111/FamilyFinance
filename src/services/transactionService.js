@@ -20,12 +20,12 @@ export const handleCreateTransaction = async (transaction) => {
 export const handleGetTransactions = async () => {
   const response = await submitApi("transactions", "GET");
   return response;
-}
+};
 
 export const handleGetTransactionById = async (id) => {
-  const response = await submitApi(transactions/${id}, "GET");
+  const response = await submitApi(`transactions/${id}`, "GET");
   return response;
-}
+};
 
 export const handleUpdateTransaction = async (transaction) => {
   const { id, value, category, type, date } = transaction;
@@ -35,16 +35,16 @@ export const handleUpdateTransaction = async (transaction) => {
   }
 
   const response = await submitApi(`transactions/${id}`, "POST", {
-    "amount": value,
-    "category": category,
-    "date": date,
-    "type": type === "income" ? 1 : 0
+    amount: value,
+    category: category,
+    date: date,
+    type: type === "income" ? 1 : 0,
   });
 
   return response;
-}
+};
 
 export const handleDeleteTransaction = async (id) => {
   const response = await submitApi(`transactions/${id}`, "DELETE");
   return response;
-}
+};
