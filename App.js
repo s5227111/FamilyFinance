@@ -2,13 +2,15 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 
 import Home from "./src/screens/Home";
 import Expenses from "./src/screens/Expenses";
 import Incomes from "./src/screens/Incomes";
 import colors from "./src/design-system/colors";
 import Login from "./src/screens/Login";
+import Profile from "./src/screens/Profile";
+import Register from "./src/screens/Register";
 import { getUser } from "./src/storage/userStorage";
 import { useEffect, useState } from "react";
 
@@ -73,16 +75,16 @@ function TabScreens() {
         }}
       />
 
-      {/* <Tab.Screen
-        name="Perfil"
-        component={Perfil}
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
         options={{
-          tabBarLabel: "Meu Perfil",
+          tabBarLabel: "My Profile",
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="user" color={color} size={size} />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 }
@@ -108,6 +110,7 @@ export default function App() {
       >
         {!user && <Stack.Screen name="Login" component={Login} />}
         <Stack.Screen name="Home" component={TabScreens} />
+        <Stack.Screen name="Register" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   );
