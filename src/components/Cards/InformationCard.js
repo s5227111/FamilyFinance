@@ -14,8 +14,8 @@ const InformationCard = ({ valueIncomes, valueExpense }) => {
                 <Text style={styles.title}>{valueIncomes}</Text>
             </View>
         </View>
-    )
-}
+    )  
+}   
 
 const styles = StyleSheet.create({
     container: {
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: '45%',
-        margin: 5,
+        margin: 5,  
         padding: 10,
         borderRadius: 10,
     },

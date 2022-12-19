@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { handleCreateTransaction } from "../services/transactionService";
 import {
   ALERT_TYPE,
@@ -6,12 +6,14 @@ import {
   Toast,
 } from "react-native-alert-notification";
 import TransactionForm from "../components/Forms/TransactionForm";
+import UserContext from '../context/userContext';
 
 
 const Incomes = () => {
   const [income, setIncome] = useState(0);
   const [incomeType, setIncomeType] = useState("");
   const [date, setDate] = useState(new Date());
+  const { user, setUser } = useContext(UserContext);
 
   // Isa = Individual Savings Account
   const incomeTypes = ["Salary", "Gift", "Isa", "Others"];
@@ -31,7 +33,7 @@ const Incomes = () => {
         date: date,
         value: income,
       };
-      await handleCreateTransaction(incomeData);
+      await handleCreateTransaction(incomeData, user);
 
       // Show success toast
       Toast.show({
@@ -42,7 +44,6 @@ const Incomes = () => {
 
       // Reset form
       setIncome(0);
-      setIncomeType("");
       setDate(new Date());
 
     } catch (error) {
@@ -55,7 +56,7 @@ const Incomes = () => {
   };
 
   return (
-    <AlertNotificationRoot theme="dark">
+    <AlertNotificationRoot>
       <TransactionForm
         title="Register a income"
         categorys={incomeTypes}

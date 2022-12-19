@@ -1,9 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import InformationCard from "../components/Cards/InformationCard";
-import LinearChart from "../components/Charts/LinearChart";
 import ContentList from "../components/TransactionLists/ContentList";
-import { handleGetTransactions, handleValueExpenseAndIncome } from "../services/transactionService";
+import { handleGetTransactions, handleValueExpenseAndIncome} from "../services/transactionService";
 
 const Home = () => {
   const [transactions, setTransactions] = useState([]);
@@ -11,9 +10,12 @@ const Home = () => {
   const [valueIncomes, setValueIncomes] = useState(0);
 
   const getAllTransactions = async () => {
+
+    // get the all transactions 
     const response = await handleGetTransactions();
     setTransactions(response);
 
+    // get the total expense and income
     const responseValues = await handleValueExpenseAndIncome();
     setValueExpense(responseValues.expense.toFixed(2));
     setValueIncomes(responseValues.income.toFixed(2));
@@ -25,15 +27,14 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <LinearChart />
-      <InformationCard
-        valueIncomes={valueIncomes}
-        valueExpense={valueExpense}
-      />
-      <ContentList data={transactions} />
-      <TouchableOpacity onPress={() => getAllTransactions()}>
-        <Text>Reload</Text>
-      </TouchableOpacity>
+        <InformationCard
+            valueIncomes={valueIncomes}
+            valueExpense={valueExpense}
+        />
+        <ContentList data={transactions} />
+        <TouchableOpacity onPress={() => getAllTransactions()}>
+            <Text>Reload</Text>
+        </TouchableOpacity>
     </View>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { handleCreateTransaction } from "../services/transactionService";
 import {
   ALERT_TYPE,
@@ -6,11 +6,13 @@ import {
   Toast,
 } from "react-native-alert-notification";
 import TransactionForm from "../components/Forms/TransactionForm";
+import UserContext from '../context/userContext';
 
 const Expenses = () => {
   const [expenseValue, setExpenseValue] = useState(0);
   const [expenseType, setExpenseType] = useState("");
   const [date, setDate] = useState(new Date());
+  const { user, setUser } = useContext(UserContext);
 
   // Isa = Individual Savings Account
   const categoryTypes = ["Food", "Transport", "Education", "Others"];
@@ -31,7 +33,7 @@ const Expenses = () => {
         value: expenseValue,
       };
 
-      await handleCreateTransaction(expenseData);
+      await handleCreateTransaction(expenseData, user);
 
       // Show success toast
       Toast.show({
@@ -42,7 +44,6 @@ const Expenses = () => {
 
       // Reset form
       setExpenseValue(0);
-      setExpenseType("");
       setDate(new Date());
 
     } catch (error) {

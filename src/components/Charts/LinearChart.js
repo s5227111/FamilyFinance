@@ -1,35 +1,26 @@
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions, View } from "react-native";
+import colors from "../../design-system/colors";
 
-const LinearChart = () => {
-
+const LinearChart = ({ labels, data }) => {
     return (
         <View>
             <LineChart
                 data={{
-                    labels: ["Janeiro", "Fevereiro", "MarÃ§o", "Abril", "Maio", "Junho"],
+                    labels: labels,
                     datasets: [
                         {
-                            data: [
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                                Math.random() * 100,
-                            ],
+                            data: data,
                         },
                     ],
                 }}
                 width={Dimensions.get("window").width - 18} // from react-native
                 height={220}
-                yAxisLabel="R$"
-                yAxisSuffix="k"
-                yAxisInterval={1} // optional, defaults to 1
+                yAxisLabel="£"
                 chartConfig={{
-                    backgroundColor: "#7F94EB",
-                    backgroundGradientFrom: "#246DD4",
-                    backgroundGradientTo: "#ffa726",
+                    backgroundColor: colors.primary,
+                    backgroundGradientFrom: colors.primary,
+                    backgroundGradientTo: colors.link,
                     decimalPlaces: 2, // optional, defaults to 2dp
                     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                     labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -39,7 +30,7 @@ const LinearChart = () => {
                     propsForDots: {
                         r: "6",
                         strokeWidth: "2",
-                        stroke: "#ffa726",
+                        stroke: colors.link,
                     },
                 }}
                 bezier

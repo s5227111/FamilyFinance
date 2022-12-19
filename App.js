@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Home from "./src/screens/Home";
 import Expenses from "./src/screens/Expenses";
@@ -12,8 +12,9 @@ import Login from "./src/screens/Login";
 import Profile from "./src/screens/Profile";
 import Register from "./src/screens/Register";
 import Charts from "./src/screens/Charts";
-import { getUser } from "./src/storage/userStorage";
+import { getUserLocal } from "./src/storage/userStorage";
 import { useEffect, useState } from "react";
+import UserContext from "./src/context/userContext";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -82,7 +83,7 @@ function TabScreens() {
         options={{
           tabBarLabel: "Charts",
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name="piechart" color={color} size={size} />
+            <AntDesign name="linechart" color={color} size={size} />
           ),
         }}
       />
@@ -91,7 +92,7 @@ function TabScreens() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: "My Profile",
+          tabBarLabel: "Profile",
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="user" color={color} size={size} />
           ),
@@ -106,26 +107,31 @@ export default function App() {
 
   useEffect(() => {
     const loadUser = async () => {
-      const user = await getUser();
+      const user = await getUserLocal();
       setUser(user);
-    };
+    }
 
     loadUser();
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        {!user && <Stack.Screen name="Login" component={Login} />}
-        <Stack.Screen name="Home" component={TabScreens} />
-        <Stack.Screen name="Register" component={Register} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+    <>
+      <UserContext.Provider value={{ user, setUser }}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            {!user && <Stack.Screen name="Login" component={Login} />}
+            <Stack.Screen name="Home" component={TabScreens} />
+            <Stack.Screen name="Register" component={Register} />
+            {user && <Stack.Screen name="Login" component={Login} />}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserContext.Provider>
+    </>
+  )
 }
 
 const styles = StyleSheet.create({

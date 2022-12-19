@@ -1,14 +1,11 @@
 import submitApi from "../config/submitApi";
-import { getUser } from "../storage/userStorage";
 
-export const handleCreateTransaction = async (transaction) => {
+export const handleCreateTransaction = async (transaction, user) => {
   const { value, category, type, date } = transaction;
 
   if (!value || !category || !type || !date) {
     throw new Error("Please fill all the fields");
   }
-
-  const user = await getUser();
 
   const response = await submitApi("transactions/create", "POST", {
     "amount": value,
