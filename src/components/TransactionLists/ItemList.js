@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import colors from "../../design-system/colors";
 
-const ItemList = ({ item }) => {
+const ItemList = ({ item, user }) => {
 
     let data = new Date(item.date);
     let styleType = styles.expenseType
@@ -15,6 +15,7 @@ const ItemList = ({ item }) => {
         <TouchableOpacity style={styles.itemContainer}>
             <View style={styles.itemLeft}>
                 <Text style={styles.itemTitle}>{item.category}</Text>
+                <Text style={styles.itemDate}>{user.name}</Text>
                 <Text style={styles.itemDate}>{data.toDateString()}</Text>
             </View>
             <View style={styles.itemRight}>

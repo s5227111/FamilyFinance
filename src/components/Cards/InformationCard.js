@@ -1,22 +1,8 @@
 import colors from "../../design-system/colors"
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { handleValueExpenseAndIncome } from "../../services/transactionService";
 
-const InformationCard = () => {
-    const [valueExpense, setValueExpense] = React.useState(0);
-    const [valueIncomes, setValueIncomes] = React.useState(0);
-
-    React.useEffect(() => {
-        const getValues = async () => {
-            const response = await handleValueExpenseAndIncome();
-            setValueExpense(response.expense.toFixed(2));
-            setValueIncomes(response.income.toFixed(2));
-        }
-
-        getValues();
-    }, []);
-
+const InformationCard = ({ valueIncomes, valueExpense }) => {
     return (
         <View style={styles.container}>
             <View style={[styles.card, styles.cardExpenses]}>
