@@ -70,7 +70,7 @@ const Profile = () => {
     return (
         <AlertNotificationRoot>
             <View style={styles.container}>
-                <Text style={styles.title}>Update</Text>
+                <Text style={styles.title}>Profile Details</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Name"

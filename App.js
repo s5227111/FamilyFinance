@@ -11,6 +11,7 @@ import colors from "./src/design-system/colors";
 import Login from "./src/screens/Login";
 import Profile from "./src/screens/Profile";
 import Register from "./src/screens/Register";
+import Charts from "./src/screens/Charts";
 import { getUser } from "./src/storage/userStorage";
 import { useEffect, useState } from "react";
 
@@ -71,6 +72,17 @@ function TabScreens() {
               color={color}
               size={size}
             />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name="Charts"
+        component={Charts}
+        options={{
+          tabBarLabel: "Charts",
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="piechart" color={color} size={size} />
           ),
         }}
       />
