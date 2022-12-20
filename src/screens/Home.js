@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import InformationCard from "../components/Cards/InformationCard";
 import ContentList from "../components/TransactionLists/ContentList";
-import { handleGetTransactions, handleValueExpenseAndIncome} from "../services/transactionService";
+import { handleGetTransactions, handleValueExpenseAndIncome } from "../services/transactionService";
+import HomeBanner from "../components/Banner/HomeBanner";
 
 const Home = () => {
   const [transactions, setTransactions] = useState([]);
@@ -27,14 +28,15 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-        <InformationCard
-            valueIncomes={valueIncomes}
-            valueExpense={valueExpense}
-        />
-        <ContentList data={transactions} />
-        <TouchableOpacity onPress={() => getAllTransactions()}>
-            <Text>Reload</Text>
-        </TouchableOpacity>
+      <HomeBanner />
+      <InformationCard
+        valueIncomes={valueIncomes}
+        valueExpense={valueExpense}
+      />
+      <ContentList data={transactions} />
+      <TouchableOpacity onPress={() => getAllTransactions()}>
+        <Text>Reload</Text>
+      </TouchableOpacity>
     </View>
   );
 };
