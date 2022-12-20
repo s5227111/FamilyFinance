@@ -10,6 +10,11 @@ export const handleLogin = async (email, password) => {
 };
 
 export const handleRegister = async (name, email, password) => {
+
+    if (!name || !email || !password) {
+        throw new Error("Please fill all the fields");
+    }
+
     const response = await submitApi("users/register", "POST", {
         "name": name,
         "email": email,

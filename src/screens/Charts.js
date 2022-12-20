@@ -4,11 +4,12 @@ import { monthsValeu } from "../config/months";
 import LinearChart from "../components/Charts/LinearChart";
 import PieCharts from "../components/Charts/PieCharts";
 import colors from "../design-system/colors";
-import { handleGetChartToMonth } from "../services/chartService";
+import { handleGetChartToCategory, handleGetChartToMonth } from "../services/chartService";
 
 const Charts = () => {
     const [chartValue, setChartValue] = useState([]);
     const [chartLabel, setChartLabel] = useState([]);
+    const [charCategory, setCharCategory] = useState([]);
     const [loading, setLoading] = useState(true);
 
     /**
@@ -45,9 +46,30 @@ const Charts = () => {
             data = data.slice(monthToday - 5, monthToday + 1);
         }
 
+        // get the chart data category
+        let valueChartresponseCategory = await handleGetChartToCategory();
+        let valueCategoryWithColor = await valueChartresponseCategory.map((item) => {
+            return {
+                ...item,
+                amount: parseFloat(parseFloat(item.total).toFixed(2)),
+                name: item.category,
+                color: colors.category[(item.category).toLowerCase()],
+                legendFontColor: colors.text,
+                legendFontSize: 15
+            };
+        });
+
+
+        console.log(valueCategoryWithColor);
+
+        // set the chart data category with color
+        setCharCategory(valueCategoryWithColor);
+
         // set the chart data and labels
         setChartValue(data);
         setChartLabel(labels);
+
+        // set loading to false
         setLoading(false);
     }
 
@@ -58,13 +80,24 @@ const Charts = () => {
     return (
         <View style={styles.container}>
             {loading === false &&
-                <LinearChart
-                    data={chartValue}
-                    labels={chartLabel}
-                />
-            }
+                <>
+                    <Text style={styles.title}>Icomes to month</Text>
+                    <LinearChart
+                        data={chartValue}
+                        labels={chartLabel}
+                    />
 
-            <PieCharts />
+                    {charCategory.length > 0 &&
+                        <>
+                            <Text style={styles.title}>Expense to category</Text>
+                            <PieCharts
+                                data={charCategory}
+                                nameValue="amount"
+                            />
+                        </>
+                    }
+                </>
+            }
 
             <TouchableOpacity onPress={() => getChart()}>
                 <Text>Reload</Text>
@@ -80,6 +113,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         // justifyContent: 'center',
         padding: 5,
+    },
+
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginTop: 10,
     },
 });
 

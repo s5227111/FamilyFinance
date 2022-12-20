@@ -12,6 +12,7 @@ import Login from "./src/screens/Login";
 import Profile from "./src/screens/Profile";
 import Register from "./src/screens/Register";
 import Charts from "./src/screens/Charts";
+import TransactionDetails from "./src/screens/TransactionDetails";
 import { getUserLocal } from "./src/storage/userStorage";
 import { useEffect, useState } from "react";
 import UserContext from "./src/context/userContext";
@@ -126,6 +127,7 @@ export default function App() {
             {!user && <Stack.Screen name="Login" component={Login} />}
             <Stack.Screen name="Home" component={TabScreens} />
             <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="TransactionDetails" component={TransactionDetails} />
             {user && <Stack.Screen name="Login" component={Login} />}
           </Stack.Navigator>
         </NavigationContainer>

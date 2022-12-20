@@ -13,19 +13,19 @@ const Resgister = () => {
     const [error, setError] = useState('');
 
     const navigation = useNavigation();
-    
+
     const handleRegisterUser = async () => {
         setLoading(true);
         try {
             const response = await handleRegister(name, email, password);
-            
+
             if (response) {
                 Toast.show({
                     type: ALERT_TYPE.SUCCESS,
                     title: "Success",
                     textBody: "User registered successfully",
                 });
-                
+
                 setTimeout(() => {
                     navigation.navigate('Login');
                 }, 1000);
@@ -50,7 +50,6 @@ const Resgister = () => {
                     style={styles.input}
                     placeholder="Name"
                     value={name}
-                    autoCapitalize='none'
                     onChangeText={setName}
                 />
                 <TextInput
@@ -73,8 +72,8 @@ const Resgister = () => {
                     <Text style={styles.buttonText}>Register</Text>
                 </Pressable>
 
-                <Pressable style={{marginBottom: 10}} onPress={() => navigation.navigate('Login')}>
-                    <Text style={{color: colors.primary}}>
+                <Pressable style={{ marginBottom: 10 }} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{ color: colors.primary }}>
                         Already have a registration? Access here
                     </Text>
                 </Pressable>

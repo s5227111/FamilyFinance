@@ -46,7 +46,7 @@ export const handleUpdateTransaction = async (transaction) => {
 }
 
 export const handleDeleteTransaction = async (id) => {
-  const response = await submitApi(`transactions/${id}`, "DELETE");
+  const response = await submitApi(`transactions/delete/${id}`, "GET");
   return response;
 }
 
