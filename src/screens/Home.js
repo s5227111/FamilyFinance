@@ -10,6 +10,13 @@ const Home = () => {
   const [valueExpense, setValueExpense] = useState(0);
   const [valueIncomes, setValueIncomes] = useState(0);
 
+  /**
+   * Get all transactions
+   * @returns
+   * @memberof Home
+   * @description Get all transactions
+   * @returns {Promise<void>}
+    */
   const getAllTransactions = async () => {
 
     // get the all transactions 

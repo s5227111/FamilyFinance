@@ -10,10 +10,21 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     const navigation = useNavigation();
-    
+
+    /**
+     * Handle login user
+     * @returns
+     * @memberof Login
+     * @description Handle login user
+     * @returns {Promise<void>}
+     * @param {string} email
+     * @param {string} password
+     * @returns {Promise<void>}
+     * @memberof Login
+     */
     const handleLoginUser = async () => {
         setLoading(true);
         try {
@@ -24,44 +35,44 @@ const Login = () => {
         } catch (e) {
             setError(e.message);
         }
-         
+
         setLoading(false);
     };
-    
+
     return (
         <View style={styles.container}>
-        <Text style={styles.title}>Family Finance</Text>
-        <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            autoCapitalize='none'
-            onChangeText={setEmail}
-        />
-        <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            autoCapitalize='none'
-            secureTextEntry
-        />
-        <Pressable style={styles.button} onPress={handleLoginUser}>
-            <Text style={styles.buttonText}>Login</Text>
-        </Pressable>
+            <Text style={styles.title}>Family Finance</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="Email"
+                value={email}
+                autoCapitalize='none'
+                onChangeText={setEmail}
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="Password"
+                value={password}
+                onChangeText={setPassword}
+                autoCapitalize='none'
+                secureTextEntry
+            />
+            <Pressable style={styles.button} onPress={handleLoginUser}>
+                <Text style={styles.buttonText}>Login</Text>
+            </Pressable>
 
-        <Pressable style={{marginBottom: 10}} onPress={() => navigation.navigate('Register')}>
-            <Text style={{color: colors.primary}}>
-                Don't have a registration? sign up for free
-            </Text>
-        </Pressable>
+            <Pressable style={{ marginBottom: 10 }} onPress={() => navigation.navigate('Register')}>
+                <Text style={{ color: colors.primary }}>
+                    Don't have a registration? sign up for free
+                </Text>
+            </Pressable>
 
-        {loading && <Text>Loading...</Text>}
-        {error && 
-            <Text style={{ color: colors.danger }}>
-                {error}
-            </Text>
-        }
+            {loading && <Text>Loading...</Text>}
+            {error &&
+                <Text style={{ color: colors.danger }}>
+                    {error}
+                </Text>
+            }
         </View>
     );
 };

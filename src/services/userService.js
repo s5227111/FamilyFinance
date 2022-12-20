@@ -1,5 +1,13 @@
 import submitApi from "../config/submitApi"
 
+/**
+ * Get Login User
+ * @returns
+ * @description Get Login User
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<void>}
+ */
 export const handleLogin = async (email, password) => {
     const response = await submitApi("users/login", "POST", {
         "email": email,

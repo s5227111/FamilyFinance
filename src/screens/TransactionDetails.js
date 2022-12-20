@@ -10,6 +10,16 @@ const TransactionDetails = () => {
     const navigation = useNavigation();
     const transaction = route.params.transaction;
 
+    /**
+     * Handle delete transaction
+     * @returns
+     * @memberof TransactionDetails
+     * @description Handle delete transaction
+     * @returns {Promise<void>}
+     * @param {string} id
+     * @returns {Promise<void>}
+     * @memberof TransactionDetails
+     */
     const handleDeleteTransactionAction = async () => {
         try {
             await handleDeleteTransaction(transaction.id);

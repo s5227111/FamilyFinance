@@ -14,6 +14,18 @@ const Resgister = () => {
 
     const navigation = useNavigation();
 
+    /**
+     * Handle register user
+     * @returns
+     * @memberof Register
+     * @description Handle register user
+     * @returns {Promise<void>}
+     * @param {string} name
+     * @param {string} email
+     * @param {string} password
+     * @returns {Promise<void>}
+     * @memberof register
+     */
     const handleRegisterUser = async () => {
         setLoading(true);
         try {

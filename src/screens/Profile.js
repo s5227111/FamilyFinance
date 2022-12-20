@@ -9,15 +9,15 @@ import UserContext from '../context/userContext';
 import { setUserLocal } from "../storage/userStorage";
 
 const Profile = () => {
-    const {user, setUser} = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
     const [id, setId] = useState(user.id);
     const [email, setEmail] = useState(user.email);
     const [password, setPassword] = useState(user.password);
     const [name, setName] = useState(user.name);
     const [loading, setLoading] = useState(false);
-    
 
-    useEffect(() => {  
+
+    useEffect(() => {
         const loadUser = async () => {
             setId(user.id);
             setEmail(user.email);
@@ -26,30 +26,43 @@ const Profile = () => {
         }
 
         loadUser();
-      }, [user]); 
+    }, [user]);
 
     const navigation = useNavigation();
-    
+
+    /**
+     * Handle update user
+     * @returns
+     * @memberof Profile
+     * @description Handle update user
+     * @returns {Promise<void>}
+     * @param {string} name
+     * @param {string} email
+     * @param {string} password
+     * @param {string} id
+     * @returns {Promise<void>}
+     * @memberof Profile
+     */
     const handlerUpdateProfile = async () => {
         setLoading(true);
 
         try {
             const response = await handleUpdateUser({
-                name, 
-                email, 
-                password, 
+                name,
+                email,
+                password,
                 id
             });
-            
+
             Toast.show({
                 type: ALERT_TYPE.SUCCESS,
                 title: "Success",
                 textBody: "User updated successfully",
             });
-        
+
             await setUserLocal(response);
             await setUser(response);
-            
+
         } catch (error) {
             console.log(error);
 

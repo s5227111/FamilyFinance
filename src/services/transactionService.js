@@ -1,5 +1,16 @@
 import submitApi from "../config/submitApi";
 
+/**
+ * Get the chart data
+ * @returns
+ * @memberof Charts
+ * @description Get the chart data
+ * @returns {Promise<void>}
+ * @param {string} url
+ * @param {string} method
+ * @returns {Promise<void>}
+ * @memberof Charts
+ */
 export const handleCreateTransaction = async (transaction, user) => {
   const { value, category, type, date } = transaction;
 

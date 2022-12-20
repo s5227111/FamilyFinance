@@ -59,9 +59,6 @@ const Charts = () => {
             };
         });
 
-
-        console.log(valueCategoryWithColor);
-
         // set the chart data category with color
         setCharCategory(valueCategoryWithColor);
 
